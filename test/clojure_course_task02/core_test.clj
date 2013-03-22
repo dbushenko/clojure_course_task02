@@ -4,7 +4,7 @@
 
 (deftest find-files-test
   (testing "find-files count testing..."
-    (is (>= 2 (count (find-files "^core.+" "./"))))))
+    (is (<= 2 (count (find-files "^core.+" "./"))))))
 
 
 (deftest find-files-test2

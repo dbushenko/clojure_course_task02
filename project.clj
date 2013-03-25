@@ -5,4 +5,4 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]]
   :aot :all
-  :main clojure_course_task02.core)
+  :main clojure-course-task02.core)

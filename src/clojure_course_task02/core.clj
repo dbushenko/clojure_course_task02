@@ -10,9 +10,9 @@
 (defn find-files [file-name path]
   (->> path
        get-directories
-       (pmap get-files)
+       (map get-files)
        flatten
-       (pmap #(.getName %))
+       (map #(.getName %))
        (filter #(not (nil? (re-find (re-pattern file-name) %))))))
 
 (defn usage []

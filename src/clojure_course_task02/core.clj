@@ -7,13 +7,15 @@
 (defn get-files [path]
   (filter #(.isFile %) (.listFiles path)))
 
+
 (defn find-files [file-name path]
-  (->> path
-       get-directories
-       (map get-files)
-       flatten
-       (map #(.getName %))
-       (filter #(not (nil? (re-find (re-pattern file-name) %))))))
+  (let [regex (re-pattern file-name)]
+        (->> path
+             get-directories
+             (pmap get-files)
+             flatten
+             (pmap #(.getName %))
+             (filter #(not (nil? (re-find regex %)))))))
 
 (defn usage []
   (println "Usage: $ run.sh file_name path"))
@@ -23,4 +25,5 @@
     (usage)
     (do
       (println "Searching for " file-name " in " path "...")
-      (dorun (map println (find-files file-name path))))))
+      (dorun (map println (find-files file-name path)))
+      (shutdown-agents))))

@@ -2,10 +2,10 @@
   (:gen-class))
 
 (defn get-directories [path]
-  (filter #(.isDirectory %) (file-seq (clojure.java.io/file path))))
+  (filter (memfn isDirectory) (file-seq (clojure.java.io/file path))))
 
 (defn get-files [path]
-  (filter #(.isFile %) (.listFiles path)))
+  (filter #(.isFile %) (.listFiles path))) ;; memfn
 
 
 (defn find-files [file-name path]
@@ -14,8 +14,8 @@
              get-directories
              (pmap get-files)
              flatten
-             (pmap #(.getName %))
-             (filter #(not (nil? (re-find regex %)))))))
+             (pmap #(.getName %)) ;; memfn
+             (filter #(not (nil? (re-find regex %)))))))  ;; comp + partial
 
 (defn usage []
   (println "Usage: $ run.sh file_name path"))
